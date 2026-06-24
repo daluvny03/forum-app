@@ -1,13 +1,20 @@
 import { useEffect } from 'react';
-import { getAllThreads } from '../utils/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { asyncReceiveThreads } from '../redux/threads/action';
+
+
 
 function HomePage() {
-  useEffect(() => {
-    getAllThreads()
-      .then(console.log)
-      .catch(console.error);
-  }, []);
-
+    const threads = useSelector(
+      (states) => states.threads
+    );
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(
+        asyncReceiveThreads()
+        );
+    }, [dispatch]);
+    console.log(threads);
   return <h1>Home Page</h1>;
 }
 

@@ -204,6 +204,16 @@ async function neutralVoteThread(threadId) {
   }
 }
 
+async function getAllUsers() {
+  const response = await fetch(`${BASE_URL}/users`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    throw new Error(responseJson.message);
+  }
+  return responseJson.data.users;
+}
+
 export { putAccessToken,
          getAccessToken,
          removeAccessToken,
@@ -218,5 +228,6 @@ export { putAccessToken,
          createComment, 
          upVoteThread, 
          downVoteThread, 
-         neutralVoteThread
+         neutralVoteThread,
+         getAllUsers
         };
