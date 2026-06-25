@@ -12,7 +12,7 @@ function setLeaderboardActionCreator(leaderboard) {
   };
 }
 
-function asyncReceiveLeaderboard() {
+function asyncPopulateLeaderboard() {
   return async (dispatch) => {
     const leaderboard = await getLeaderboards();
     dispatch(
@@ -26,5 +26,5 @@ function asyncReceiveLeaderboard() {
 export {
     ActionType,
     setLeaderboardActionCreator,
-    asyncReceiveLeaderboard,
+    asyncPopulateLeaderboard,
 }

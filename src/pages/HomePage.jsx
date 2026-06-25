@@ -1,21 +1,29 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { asyncReceiveThreads } from '../redux/threads/action';
+import { useDispatch, useSelector } from 'react-redux';
 
-
+import { asyncPopulateThreads } from '../redux/threads/action';
+import ThreadList from '../components/ThreadList';
 
 function HomePage() {
-    const threads = useSelector(
-      (states) => states.threads
-    );
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(
-        asyncReceiveThreads()
-        );
-    }, [dispatch]);
-    console.log(threads);
-  return <h1>Home Page</h1>;
+  const dispatch = useDispatch();
+
+  const threads = useSelector((state) => state.threads);
+  const users = useSelector((state) => state.users);
+
+  useEffect(() => {
+    dispatch(asyncPopulateThreads());
+  }, [dispatch]);
+
+  return (
+    <section>
+      <h2>Diskusi Terbaru</h2>
+
+      <ThreadList
+        threads={threads}
+        users={users}
+      />
+    </section>
+  );
 }
 
 export default HomePage;

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import HomePage from '../pages/HomePage'; // sesuaikan dengan nama file Anda
 import Login from '../pages/LoginPage';
 import Register from '../pages/RegisterPage';
+import ThreadDetail from '../pages/DetailPage';
 import Navbar from '../components/Navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncPreloadProcess } from '../redux/loading/action';
@@ -52,6 +53,14 @@ function AppRoutes() {
             <Register />
           </GuestRoute>
         } />
+        <Route
+          path="/threads/:id"
+          element={
+          <ProtectedRoute>
+            <ThreadDetail />
+          </ProtectedRoute>
+          }
+          />
         
         {/* Halaman Solusi jika user mengetik URL yang salah (404 Not Found) */}
         <Route path="*" element={<h1>Halaman Tidak Ditemukan (404)</h1>} />

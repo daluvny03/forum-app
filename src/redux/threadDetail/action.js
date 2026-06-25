@@ -20,7 +20,7 @@ function clearThreadDetailActionCreator() {
   };
 }
 
-function asyncReceiveThreadDetail(threadId) {
+function asyncPopulateThreadDetail(threadId) {
   return async (dispatch) => {
     dispatch(clearThreadDetailActionCreator());
     const threadDetail = await getThreadDetail(threadId);
@@ -32,5 +32,5 @@ export {
   ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
-  asyncReceiveThreadDetail,
+  asyncPopulateThreadDetail,
 };

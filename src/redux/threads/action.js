@@ -1,7 +1,9 @@
-import { getAllThreads } from "../../utils/api";
+import { getAllThreads, getAllUsers } from "../../utils/api";
+import { receiveUsersActionCreator } from "../users/action";
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
+
 };
 
 function receiveThreadsActionCreator(threads) {
@@ -13,12 +15,18 @@ function receiveThreadsActionCreator(threads) {
   };
 }
 
-function asyncReceiveThreads() {
+function asyncPopulateThreads() {
   return async (dispatch) => {
     const threads = await getAllThreads();
+    const users = await getAllUsers();
     dispatch(
       receiveThreadsActionCreator(
         threads,
+      ),
+    );
+    dispatch(
+      receiveUsersActionCreator(
+        users,
       ),
     );
   };
@@ -27,5 +35,5 @@ function asyncReceiveThreads() {
 export {
     ActionType,
     receiveThreadsActionCreator,
-    asyncReceiveThreads,
+    asyncPopulateThreads,
 }
