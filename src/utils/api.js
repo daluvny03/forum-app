@@ -31,10 +31,8 @@ async function fetchWithAuth(endpoint, options = {}) {
     // Opsional: Jika token kedaluwarsa / tidak valid (Error 401), otomatis logout
     if (response.status === 401) {
       removeAccessToken();
-      window.location.href = '/login'; // Tendang user ke halaman login
-      return Promise.reject('Sesi habis, silakan login kembali.');
+      throw new Error('Sesi habis, silakan login kembali.');
     }
-
     return await response.json();
   } catch (error) {
     console.error('Fetch error:', error);
@@ -44,6 +42,9 @@ async function fetchWithAuth(endpoint, options = {}) {
 
 async function register({ name, email, password }) {
   const response = await fetch(`${BASE_URL}/register`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     method: 'POST',
     body: JSON.stringify({
       name,
@@ -63,6 +64,9 @@ async function register({ name, email, password }) {
 
 async function login({ email, password }) {
   const response = await fetch(`${BASE_URL}/login`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -78,8 +82,7 @@ async function login({ email, password }) {
 }
 
 async function getOwnProfile() {
-  const response = await fetchWithAuth(`${BASE_URL}/users/me`);
-  const responseJson = await response.json();
+  const responseJson = await fetchWithAuth(`/users/me`);
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);
@@ -110,8 +113,8 @@ async function getThreadDetail(threadId) {
 }
 
 async function createThread({ title, body, category }) {
-  const response = await fetchWithAuth(
-    `${BASE_URL}/threads`,
+  const responseJson = await fetchWithAuth(
+    `/threads`,
     {
       method: 'POST',
       body: JSON.stringify({
@@ -121,7 +124,6 @@ async function createThread({ title, body, category }) {
       }),
     },
   );
-  const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);
@@ -133,8 +135,8 @@ async function createComment({
   threadId,
   content,
 }) {
-  const response = await fetchWithAuth(
-    `${BASE_URL}/threads/${threadId}/comments`,
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/comments`,
     {
       method: 'POST',
       body: JSON.stringify({
@@ -142,7 +144,6 @@ async function createComment({
       }),
     },
   );
-  const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);
@@ -163,13 +164,12 @@ async function getLeaderboards() {
 }
 
 async function upVoteThread(threadId) {
-  const response = await fetchWithAuth(
-    `${BASE_URL}/threads/${threadId}/up-vote`,
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/up-vote`,
     {
       method: 'POST',
     },
   );
-  const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);
@@ -177,13 +177,12 @@ async function upVoteThread(threadId) {
 }
 
 async function downVoteThread(threadId) {
-  const response = await fetchWithAuth(
-    `${BASE_URL}/threads/${threadId}/down-vote`,
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/down-vote`,
     {
       method: 'POST',
     },
   );
-  const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);
@@ -191,13 +190,12 @@ async function downVoteThread(threadId) {
 }
 
 async function neutralVoteThread(threadId) {
-  const response = await fetchWithAuth(
-    `${BASE_URL}/threads/${threadId}/neutral-vote`,
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/neutral-vote`,
     {
       method: 'POST',
     },
   );
-  const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
     throw new Error(responseJson.message);

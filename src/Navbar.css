@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  --utas-ink: #1F2230;
+  --utas-paper: #F7F3EA;
+  --utas-canvas: #FAF8F3;
+  --utas-coral: #FF5A36;
+  --utas-coral-dark: #E0481F;
+  --utas-teal: #3FA796;
+  --utas-text: #20232B;
+  --utas-text-muted: #6B6F7D;
+  --utas-border: #E7E2D6;
+}
+
+.utas-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 248, 243, 0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--utas-border);
+}
+
+.utas-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+}
+
+.utas-nav-brand {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--utas-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.utas-nav-dot {
+  color: var(--utas-coral);
+}
+
+.utas-nav-thread {
+  width: 64px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* ---------- Links & actions ---------- */
+
+.utas-nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: 24px;
+}
+
+.utas-nav-links {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.utas-nav-link {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--utas-text-muted);
+  text-decoration: none;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.utas-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--utas-coral);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.utas-nav-link:hover {
+  color: var(--utas-text);
+}
+
+.utas-nav-link.active {
+  color: var(--utas-text);
+}
+
+.utas-nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.utas-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.utas-nav-login {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--utas-text);
+  text-decoration: none;
+  padding: 9px 4px;
+}
+
+.utas-nav-login:hover {
+  color: var(--utas-coral-dark);
+}
+
+.utas-nav-register {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--utas-coral);
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.utas-nav-register:hover {
+  background: var(--utas-coral-dark);
+}
+
+.utas-nav-register:active {
+  transform: translateY(1px);
+}
+
+.utas-nav-logout {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--utas-coral);
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.utas-nav-logout:hover {
+  background: var(--utas-coral-dark);
+}
+
+.utas-nav-logout:active {
+  transform: translateY(1px);
+}
+
+.utas-nav-link:focus-visible,
+.utas-nav-login:focus-visible,
+.utas-nav-register:focus-visible,
+.utas-nav-brand:focus-visible,
+.utas-nav-logout:focus-visible {
+  outline: 2px solid var(--utas-teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Mobile toggle ---------- */
+
+.utas-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.utas-nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--utas-text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.utas-nav-toggle:focus-visible {
+  outline: 2px solid var(--utas-teal);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 760px) {
+  .utas-nav-thread {
+    display: none;
+  }
+
+  .utas-nav-toggle {
+    display: flex;
+  }
+
+  .utas-nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    background: var(--utas-canvas);
+    border-bottom: 1px solid var(--utas-border);
+    padding: 20px 24px 24px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.25s ease, opacity 0.2s ease;
+  }
+
+  .utas-nav-menu.is-open {
+    max-height: 320px;
+    opacity: 1;
+  }
+
+  .utas-nav-links {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .utas-nav-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .utas-nav-login {
+    padding: 10px 0;
+  }
+
+  .utas-nav-register {
+    text-align: center;
+    padding: 11px 18px;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .utas-nav-link::after,
+  .utas-nav-register,
+  .utas-nav-menu,
+  .utas-nav-toggle span {
+    transition: none;
+  }
+}

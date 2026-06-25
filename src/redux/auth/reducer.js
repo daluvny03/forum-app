@@ -1,7 +1,7 @@
 import { ActionType } from './action';
 
 function authReducer(
-  auth = {},
+  auth = null,
   action = {},
 ) {
   switch(action.type) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // 1. Impor semua halaman dari folder pages
@@ -6,8 +6,22 @@ import HomePage from '../pages/HomePage'; // sesuaikan dengan nama file Anda
 import Login from '../pages/LoginPage';
 import Register from '../pages/RegisterPage';
 import Navbar from '../components/Navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncPreloadProcess } from '../redux/loading/action';
+import ProtectedRoute from '../components/ProtectedRoute';
+import GuestRoute from '../components/GuestRoute';
 
-function App() {
+function AppRoutes() {
+  const dispatch = useDispatch();
+  const isPreload = useSelector(
+    (state) => state.isPreload
+  );
+  useEffect(() => {
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
+  if (isPreload) {
+    return <h2>Loading...</h2>;
+  }
   return (
     <>
       
@@ -19,13 +33,25 @@ function App() {
         {/* 2. Tentukan path/URL untuk masing-masing halaman */}
         
         {/* Halaman Utama (URL: / ) */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        } /> 
         
         {/* Halaman Login (URL: /login ) */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+        } />
         
         {/* Halaman Register (URL: /register ) */}
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={
+          <GuestRoute>
+            <Register />
+          </GuestRoute>
+        } />
         
         {/* Halaman Solusi jika user mengetik URL yang salah (404 Not Found) */}
         <Route path="*" element={<h1>Halaman Tidak Ditemukan (404)</h1>} />
@@ -35,4 +61,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppRoutes;
