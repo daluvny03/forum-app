@@ -22,7 +22,6 @@ function clearThreadDetailActionCreator() {
 
 function asyncPopulateThreadDetail(threadId) {
   return async (dispatch) => {
-    dispatch(clearThreadDetailActionCreator());
     const threadDetail = await getThreadDetail(threadId);
     dispatch(receiveThreadDetailActionCreator(threadDetail));
   };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { asyncPopulateThreads } from '../redux/threads/action';
 import ThreadList from '../components/ThreadList';
+import '../Home.css';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -15,13 +16,16 @@ function HomePage() {
   }, [dispatch]);
 
   return (
-    <section>
-      <h2>Diskusi Terbaru</h2>
+    <section className="utas-home">
+      <div className="utas-home-header">
+        <p className="utas-home-eyebrow">FORUM</p>
+        <h2 className="utas-home-title">Diskusi Terbaru</h2>
+        <p className="utas-home-subtitle">
+          Ikuti percakapan yang sedang berlangsung, atau mulai utas barumu sendiri.
+        </p>
+      </div>
 
-      <ThreadList
-        threads={threads}
-        users={users}
-      />
+      <ThreadList threads={threads} users={users} />
     </section>
   );
 }
