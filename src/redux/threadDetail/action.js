@@ -1,8 +1,9 @@
-import { getThreadDetail } from '../../utils/api';
+import { getThreadDetail, createComment } from '../../utils/api';
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
+  ADD_COMMENT: 'ADD_COMMENT',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -12,6 +13,18 @@ function receiveThreadDetailActionCreator(threadDetail) {
       threadDetail,
     },
   };
+}
+
+function addCommentActionCreator(
+   comment
+){
+   return{
+      type:
+      ActionType.ADD_COMMENT,
+      payload:{
+         comment
+      }
+   };
 }
 
 function clearThreadDetailActionCreator() {
@@ -27,9 +40,29 @@ function asyncPopulateThreadDetail(threadId) {
   };
 }
 
+function asyncAddComment({
+  threadId,
+  content,
+  }){
+    return async(dispatch)=>{
+    const comment= await createComment({
+      threadId,
+      content,
+    });
+    dispatch(
+      addCommentActionCreator(
+        comment
+      )
+    );
+    dispatch(asyncPopulateThreadDetail(threadId));
+  };
+}
+
 export {
   ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
   asyncPopulateThreadDetail,
+  addCommentActionCreator,
+  asyncAddComment,
 };

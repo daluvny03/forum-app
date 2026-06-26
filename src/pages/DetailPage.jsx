@@ -5,12 +5,20 @@ import { useParams } from 'react-router-dom';
 import {
   asyncPopulateThreadDetail,
   clearThreadDetailActionCreator,
+  asyncAddComment,
 } from '../redux/threadDetail/action';
 
 import ThreadDetail from '../components/ThreadDetail';
 import '../Detail.css';
 
 function DetailPage() {
+  function onAddComment({ content }){
+    dispatch(asyncAddComment({
+      threadId:id,
+      content,
+    })
+  );
+}
   const { id } = useParams();
   const dispatch = useDispatch();
   const threadDetail = useSelector(
@@ -35,7 +43,7 @@ function DetailPage() {
 
   return (
     <div className="utas-detail-page">
-      <ThreadDetail thread={threadDetail} />
+      <ThreadDetail thread={threadDetail} addComment={ onAddComment }/>
     </div>
   );
 }

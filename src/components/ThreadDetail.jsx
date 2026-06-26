@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import CommentList from './CommentList';
 import PostedAt from './PostedAt';
 import '../Detail.css';
+import CommentInput from './CommentInput';
 
-function ThreadDetail({ thread }) {
+function ThreadDetail({ thread, addComment }) {
   return (
     <article className="utas-detail">
       <header className="utas-detail-header">
@@ -41,6 +42,9 @@ function ThreadDetail({ thread }) {
         <h2 className="utas-comments-heading">
           💬 {thread.comments.length} Komentar
         </h2>
+        <CommentInput
+            addComment={addComment}
+        />
         <CommentList comments={thread.comments} />
       </section>
     </article>

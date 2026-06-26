@@ -6,6 +6,7 @@ import HomePage from '../pages/HomePage'; // sesuaikan dengan nama file Anda
 import Login from '../pages/LoginPage';
 import Register from '../pages/RegisterPage';
 import ThreadDetail from '../pages/DetailPage';
+import NewThreadPage from '../pages/NewThreadPage';
 import Navbar from '../components/Navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncPreloadProcess } from '../redux/loading/action';
@@ -53,6 +54,14 @@ function AppRoutes() {
             <Register />
           </GuestRoute>
         } />
+        <Route
+          path="/new"
+          element={
+            <ProtectedRoute>
+              <NewThreadPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/threads/:id"
           element={

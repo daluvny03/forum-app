@@ -51,19 +51,22 @@ function Navbar() {
           {
             authUser === null ? (
               <div className="utas-nav-actions">
-            <NavLink to="/login" className="utas-nav-login" onClick={closeMenu}>
-              Masuk
-            </NavLink>
-            <NavLink to="/register" className="utas-nav-register" onClick={closeMenu}>
-              Daftar
-            </NavLink>
-          </div>
+                <NavLink to="/login" className="utas-nav-login" onClick={closeMenu}>
+                  Masuk
+                </NavLink>
+                <NavLink to="/register" className="utas-nav-register" onClick={closeMenu}>
+                  Daftar
+                </NavLink>
+              </div>
             ) : (
               <div className="utas-nav-actions">
-            <NavLink className="utas-nav-logout" onClick={onlogout}>
-              Keluar dari akun ini
-            </NavLink>
-          </div>
+                <NavLink className="utas-nav-logout" onClick={onlogout}>
+                  Keluar dari akun ini
+                </NavLink>
+                <NavLink to="/new" className="utas-nav-new" onClick={closeMenu}>
+                  + Thread
+                </NavLink>
+              </div>
             )
           }
         </div>

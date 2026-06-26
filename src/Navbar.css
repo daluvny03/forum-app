@@ -163,11 +163,28 @@
   transform: translateY(1px);
 }
 
+.utas-nav-new {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--utas-coral);
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.utas-nav-new:hover {
+  background: var(--utas-coral-dark);
+}
+
 .utas-nav-link:focus-visible,
 .utas-nav-login:focus-visible,
 .utas-nav-register:focus-visible,
 .utas-nav-brand:focus-visible,
-.utas-nav-logout:focus-visible {
+.utas-nav-logout:focus-visible,
+.utas-nav-new:focus-visible {
   outline: 2px solid var(--utas-teal);
   outline-offset: 3px;
   border-radius: 4px;
