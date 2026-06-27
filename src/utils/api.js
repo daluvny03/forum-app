@@ -212,6 +212,45 @@ async function getAllUsers() {
   return responseJson.data.users;
 }
 
+async function upVoteComment(threadId, commentId) {
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/comments/${commentId}/up-vote`,
+    {
+      method: 'POST',
+    },
+  );
+
+  if (responseJson.status !== 'success') {
+    throw new Error(responseJson.message);
+  }
+}
+
+async function downVoteComment(threadId, commentId) {
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/comments/${commentId}/down-vote`,
+    {
+      method: 'POST',
+    },
+  );
+
+  if (responseJson.status !== 'success') {
+    throw new Error(responseJson.message);
+  }
+}
+
+async function neutralVoteComment(threadId, commentId) {
+  const responseJson = await fetchWithAuth(
+    `/threads/${threadId}/comments/${commentId}/neutral-vote`,
+    {
+      method: 'POST',
+    },
+  );
+
+  if (responseJson.status !== 'success') {
+    throw new Error(responseJson.message);
+  }
+}
+
 export { putAccessToken,
          getAccessToken,
          removeAccessToken,
@@ -227,5 +266,8 @@ export { putAccessToken,
          upVoteThread, 
          downVoteThread, 
          neutralVoteThread,
-         getAllUsers
+         getAllUsers,
+         neutralVoteComment,
+         upVoteComment,
+         downVoteComment,
         };

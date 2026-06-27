@@ -33,6 +33,7 @@ function ThreadList({ threads, users }) {
 ThreadList.propTypes = {
   threads: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
+  threadId: PropTypes.string.isRequired,
 };
 
 export default ThreadList;

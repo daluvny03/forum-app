@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import PostedAt from './PostedAt';
 import '../Detail.css';
+import CommentVote from './CommentVote';
 
-function CommentItem({ comment }) {
+function CommentItem({ threadId, comment }) {
   return (
     <article className="utas-comment-item">
       <div className="utas-comment-owner">
@@ -15,6 +16,10 @@ function CommentItem({ comment }) {
           <strong className="utas-comment-owner-name">{comment.owner.name}</strong>
           <PostedAt date={comment.createdAt} />
         </div>
+        <CommentVote
+            threadId={threadId}
+            comment={comment}
+        />
       </div>
       <div
         className="utas-comment-content"
@@ -28,6 +33,7 @@ function CommentItem({ comment }) {
 
 CommentItem.propTypes = {
   comment: PropTypes.object.isRequired,
+  threadId: PropTypes.string.isRequired,
 };
 
 export default CommentItem;

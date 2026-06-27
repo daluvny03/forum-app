@@ -3,6 +3,7 @@ import CommentList from './CommentList';
 import PostedAt from './PostedAt';
 import '../Detail.css';
 import CommentInput from './CommentInput';
+import ThreadDetailVote from './ThreadDetailVote';
 
 function ThreadDetail({ thread, addComment }) {
   return (
@@ -31,10 +32,9 @@ function ThreadDetail({ thread, addComment }) {
         }}
       />
 
-      <div className="utas-detail-votes">
-        <span className="utas-vote-pill utas-vote-up">👍 {thread.upVotesBy.length}</span>
-        <span className="utas-vote-pill utas-vote-down">👎 {thread.downVotesBy.length}</span>
-      </div>
+      <ThreadDetailVote
+        thread={thread}
+      />
 
       <div className="utas-detail-divider" aria-hidden="true" />
 
@@ -45,7 +45,7 @@ function ThreadDetail({ thread, addComment }) {
         <CommentInput
             addComment={addComment}
         />
-        <CommentList comments={thread.comments} />
+        <CommentList ThreadId={thread.id} comments={thread.comments} />
       </section>
     </article>
   );

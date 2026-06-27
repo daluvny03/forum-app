@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PostedAt from './PostedAt';
+import ThreadVote from './ThreadVote';
 import '../Home.css';
 
 function ThreadItem({
@@ -41,6 +42,7 @@ function ThreadItem({
         <span className="utas-thread-dot" aria-hidden="true">•</span>
         <span className="utas-thread-comments">{thread.totalComments} Komentar</span>
         <span className="utas-thread-category">#{thread.category}</span>
+        <ThreadVote thread={thread}/>
       </div>
     </article>
   );

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import CommentItem from './CommentItem';
 import '../Detail.css';
 
-function CommentList({ comments }) {
+function CommentList({ ThreadId, comments }) {
   if (comments.length === 0) {
     return (
       <p className="utas-comments-empty">
@@ -17,6 +17,7 @@ function CommentList({ comments }) {
         comments.map((comment) => (
           <CommentItem
             key={comment.id}
+            threadId={ThreadId}
             comment={comment}
           />
         ))

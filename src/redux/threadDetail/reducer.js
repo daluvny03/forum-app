@@ -17,6 +17,113 @@ function threadDetailReducer(
             ...threadDetail.comments,
           ],
       };
+    case ActionType.UP_VOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        upVotesBy:[
+        ...threadDetail.upVotesBy.filter(
+        (id)=>id!==action.payload.userId
+        ),
+        action.payload.userId,
+        ],
+        downVotesBy:
+          threadDetail.downVotesBy.filter(
+          (id)=>id!==action.payload.userId
+          ),
+      };
+    case ActionType.DOWN_VOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        downVotesBy:[
+          ...threadDetail.downVotesBy.filter(
+          (id)=>id!==action.payload.userId
+          ),
+          action.payload.userId,
+        ],
+        upVotesBy:
+          threadDetail.upVotesBy.filter(
+          (id)=>id!==action.payload.userId
+          ),
+      };
+    case ActionType.NEUTRAL_VOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        upVotesBy:
+        threadDetail.upVotesBy.filter(
+        (id)=>id!==action.payload.userId
+        ),
+        downVotesBy:
+        threadDetail.downVotesBy.filter(
+        (id)=>id!==action.payload.userId
+        ),
+      };
+    case ActionType.UP_VOTE_COMMENT:
+      return {
+      ...threadDetail,
+      comments:
+      threadDetail.comments.map((comment)=>{
+      if(comment.id!==action.payload.commentId){
+      return comment;
+      }
+      return{
+      ...comment,
+      upVotesBy:[
+      ...comment.upVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+      action.payload.userId,
+      ],
+      downVotesBy:
+      comment.downVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+      };
+      }),
+      };
+    case ActionType.DOWN_VOTE_COMMENT:
+      return {
+      ...threadDetail,
+      comments:
+      threadDetail.comments.map((comment)=>{
+      if(comment.id!==action.payload.commentId){
+      return comment;
+      }
+      return{
+      ...comment,
+      downVotesBy:[
+      ...comment.downVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+      action.payload.userId,
+      ],
+      upVotesBy:
+      comment.upVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+      };
+      }),
+      };
+    case ActionType.NEUTRAL_VOTE_COMMENT:
+      return {
+      ...threadDetail,
+      comments:
+      threadDetail.comments.map((comment)=>{
+      if(comment.id!==action.payload.commentId){
+      return comment;
+      }
+      return{
+        ...comment,
+        upVotesBy:
+      comment.upVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+      downVotesBy:
+        comment.downVotesBy.filter(
+      (id)=>id!==action.payload.userId
+      ),
+    };
+      }),
+      };
     default:
       return threadDetail;
   }
