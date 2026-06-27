@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Loading from '../components/loading';
 
 import {
   asyncPopulateThreadDetail,
@@ -24,6 +25,7 @@ function DetailPage() {
   const threadDetail = useSelector(
     (state) => state.threadDetail,
   );
+  const isLoading = useSelector((state)=>state.loading)
 
   useEffect(() => {
     dispatch(asyncPopulateThreadDetail(id));
@@ -39,6 +41,9 @@ function DetailPage() {
         Memuat utas…
       </div>
     );
+  }
+  if (isLoading){
+    return <Loading />
   }
 
   return (

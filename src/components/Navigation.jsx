@@ -66,6 +66,9 @@ function Navbar() {
                 <NavLink to="/new" className="utas-nav-new" onClick={closeMenu}>
                   + Thread
                 </NavLink>
+                <NavLink to="/leaderboard" className="utas-nav-new" onClick={closeMenu}>
+                  Leaderboard
+                </NavLink>
               </div>
             )
           }

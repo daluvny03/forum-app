@@ -1,4 +1,5 @@
 import { login, putAccessToken, getOwnProfile, removeAccessToken, register } from "../../utils/api";
+import { showLoadingActionCreator, hideLoadingActionCreator } from "../loading/action";
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -22,24 +23,34 @@ function unsetAuthUserActionCreator() {
 
 function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
-    console.log('asyncSetAuthUser called with:', { email, password });
-    const data = await login({ email, password });
-    console.log('login response data:', data);
-    const { token } = data;
-    putAccessToken(token);
-    const authUser = await getOwnProfile();
-    console.log('authUser:', authUser);
-    dispatch(setAuthUserActionCreator(authUser));
+    dispatch(showLoadingActionCreator());
+    try {
+      console.log('asyncSetAuthUser called with:', { email, password });
+      const data = await login({ email, password });
+      console.log('login response data:', data);
+      const { token } = data;
+      putAccessToken(token);
+      const authUser = await getOwnProfile();
+      console.log('authUser:', authUser);
+      dispatch(setAuthUserActionCreator(authUser));
+    } finally {
+      dispatch(hideLoadingActionCreator());
+    }
   };
 }
 
 function asyncRegisterUser({ name, email, password }) {
-  return async () => {
-    await register({
-      name,
-      email,
-      password,
-    });
+  return async (dispatch) => {
+    dispatch(showLoadingActionCreator());
+    try {
+      await register({
+        name,
+        email,
+        password,
+      });
+    } finally {
+      dispatch(hideLoadingActionCreator());
+    }
   };
 }
 

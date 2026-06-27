@@ -2,7 +2,21 @@ import { setAuthUserActionCreator, unsetAuthUserActionCreator } from '../auth/ac
 import { getOwnProfile } from '../../utils/api';
 
 const ActionType = {
-    SET_IS_PRELOAD: 'SET_IS_PRELOAD',
+  SHOW_LOADING: 'SHOW_LOADING',
+  HIDE_LOADING: 'HIDE_LOADING',
+  SET_IS_PRELOAD: 'SET_IS_PRELOAD',
+};
+
+function showLoadingActionCreator() {
+  return {
+    type: ActionType.SHOW_LOADING,
+  };
+}
+
+function hideLoadingActionCreator() {
+  return {
+    type: ActionType.HIDE_LOADING,
+  };
 }
 
 function setIsPreloadActionCreator(isPreload){
@@ -27,7 +41,8 @@ function asyncPreloadProcess() {
 }
 
 export {
-    ActionType,
-    setIsPreloadActionCreator,
-    asyncPreloadProcess,
-}
+  ActionType,
+  showLoadingActionCreator,
+  hideLoadingActionCreator,
+  asyncPreloadProcess,
+};

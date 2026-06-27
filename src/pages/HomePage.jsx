@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { asyncPopulateThreads } from '../redux/threads/action';
 import ThreadList from '../components/ThreadList';
+import Loading from '../components/loading';
 import '../Home.css';
 
 function HomePage() {
@@ -10,10 +11,14 @@ function HomePage() {
 
   const threads = useSelector((state) => state.threads);
   const users = useSelector((state) => state.users);
+  const isLoading = useSelector(state=>state.loading);
 
   useEffect(() => {
     dispatch(asyncPopulateThreads());
   }, [dispatch]);
+  if(isLoading){
+    return <Loading />
+  }
 
   return (
     <section className="utas-home">

@@ -7,6 +7,8 @@ import Login from '../pages/LoginPage';
 import Register from '../pages/RegisterPage';
 import ThreadDetail from '../pages/DetailPage';
 import NewThreadPage from '../pages/NewThreadPage';
+import LeaderboardPage from '../pages/LeaderboardPage';
+import Loading from '../components/loading';
 import Navbar from '../components/Navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncPreloadProcess } from '../redux/loading/action';
@@ -15,14 +17,14 @@ import GuestRoute from '../components/GuestRoute';
 
 function AppRoutes() {
   const dispatch = useDispatch();
-  const isPreload = useSelector(
-    (state) => state.isPreload
+  const isLoading = useSelector(
+    (state) => state.loading
   );
   useEffect(() => {
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
-  if (isPreload) {
-    return <h2>Loading...</h2>;
+  if (isLoading) {
+    return <Loading />
   }
   return (
     <>
@@ -62,6 +64,16 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+        {/* Halaman Leaderboard (URL: /leaderboard ) */}
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <LeaderboardPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/threads/:id"
           element={

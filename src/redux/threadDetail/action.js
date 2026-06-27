@@ -1,4 +1,5 @@
 import { getThreadDetail, createComment } from '../../utils/api';
+import { showLoadingActionCreator, hideLoadingActionCreator } from "../loading/action";
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -35,8 +36,13 @@ function clearThreadDetailActionCreator() {
 
 function asyncPopulateThreadDetail(threadId) {
   return async (dispatch) => {
-    const threadDetail = await getThreadDetail(threadId);
-    dispatch(receiveThreadDetailActionCreator(threadDetail));
+    dispatch(showLoadingActionCreator());
+    try {
+      const threadDetail = await getThreadDetail(threadId);
+      dispatch(receiveThreadDetailActionCreator(threadDetail));
+    } finally {
+      dispatch(hideLoadingActionCreator());
+    }
   };
 }
 
@@ -45,18 +51,23 @@ function asyncAddComment({
   content,
   }){
     return async(dispatch)=>{
-    const comment= await createComment({
-      threadId,
-      content,
-    });
-    dispatch(
-      addCommentActionCreator(
-        comment
-      )
-    );
-    dispatch(asyncPopulateThreadDetail(threadId));
+      dispatch(showLoadingActionCreator());
+      try {
+        const comment= await createComment({
+          threadId,
+          content,
+        });
+        dispatch(
+          addCommentActionCreator(
+            comment
+          )
+        );
+        dispatch(asyncPopulateThreadDetail(threadId));
+      } finally {
+        dispatch(hideLoadingActionCreator());
+      }
+    }
   };
-}
 
 export {
   ActionType,

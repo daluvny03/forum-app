@@ -10,7 +10,6 @@ function ThreadInput({ addThread }) {
 
   function onSubmitHandler(event) {
     event.preventDefault();
-
     addThread({
       title,
       body,
