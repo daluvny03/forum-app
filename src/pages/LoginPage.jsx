@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthLayout from './AuthLayout';
@@ -17,7 +17,6 @@ function LoginPage() {
       await dispatch(asyncSetAuthUser({ email, password }));
       navigate('/');
     } catch (error) {
-      console.error(error);
       alert(error.message || 'Gagal masuk');
     } finally {
       setIsSubmitting(false);

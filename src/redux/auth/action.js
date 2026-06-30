@@ -25,13 +25,10 @@ function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
     dispatch(showLoadingActionCreator());
     try {
-      console.log('asyncSetAuthUser called with:', { email, password });
       const data = await login({ email, password });
-      console.log('login response data:', data);
       const { token } = data;
       putAccessToken(token);
       const authUser = await getOwnProfile();
-      console.log('authUser:', authUser);
       dispatch(setAuthUserActionCreator(authUser));
     } finally {
       dispatch(hideLoadingActionCreator());

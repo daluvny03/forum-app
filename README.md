@@ -1,16 +1,78 @@
-# React + Vite
+# 🗨️ Forum App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern discussion forum application built with **React**, **Redux**, and **React Router**. This project was developed as the final submission for the Dicoding React Expert course.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User Authentication (Login & Register)
+- Thread List & Thread Detail
+- Create Thread & Comment
+- Thread & Comment Voting (Optimistic Update)
+- Category Filter
+- Leaderboard
+- Loading Indicator
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Redux & Redux Thunk
+- React Router DOM
+- Vite
+- ESLint
+- Day.js
+- React Icons
 
-## Expanding the ESLint configuration
+## 🚀 Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+git clone https://github.com/daluvny03/forum-app.git
+
+cd forum-app
+
+npm install
+
+npm run dev
+```
+
+Build production
+
+```bash
+npm run build
+```
+
+Run ESLint
+
+```bash
+npm run lint
+```
+
+## 📂 Project Structure
+
+```text
+src
+├── components
+├── hooks
+├── pages
+├── redux
+├── utils
+├── App.jsx
+└── main.jsx
+```
+
+## 🌐 API
+
+This project uses the Dicoding Forum API.
+
+Base URL:
+
+```
+https://forum-api.dicoding.dev/v1
+```
+
+## 👨‍💻 Author
+
+**Aza**
+
+Information Systems Student
+
+Universitas Amikom Yogyakarta

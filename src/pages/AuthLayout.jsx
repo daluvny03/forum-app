@@ -1,9 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import '../Auth.css';
 
-// Konten kartu thread di panel kiri hanya dekoratif (mock data),
-// tidak terhubung ke store — aman dipakai apa adanya.
 const mockThreads = [
   { id: 1, title: 'Kenapa state management itu penting?', author: 'Dinda', replies: 24 },
   { id: 2, title: 'Tips lolos review submission pertama', author: 'Raka', replies: 58 },

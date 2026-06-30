@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import '../Leaderboard.css';
 
-// Medali + warna khusus untuk 3 besar
 const RANK_MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 const RANK_CLASS = { 1: 'utas-lb-rank-gold', 2: 'utas-lb-rank-silver', 3: 'utas-lb-rank-bronze' };
 
