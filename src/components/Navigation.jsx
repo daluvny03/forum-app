@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import '../navbar.css';
 import { useSelector, useDispatch } from 'react-redux';

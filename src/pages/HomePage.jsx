@@ -1,17 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { asyncPopulateThreads } from '../redux/threads/action';
 import ThreadList from '../components/ThreadList';
 import Loading from '../components/loading';
 import '../Home.css';
+import CategoryFilter from '../components/CategoryFilter';
 
 function HomePage() {
   const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const threads = useSelector((state) => state.threads);
   const users = useSelector((state) => state.users);
   const isLoading = useSelector(state=>state.loading);
+  const categories = [
+    ...new Set(
+      threads.map(
+        (thread) => thread.category,
+      ),
+    ),
+  ];
+  const filteredThreads = selectedCategory ? threads.filter(
+    (thread)=>
+    thread.category===selectedCategory
+    )
+    : threads;
 
   useEffect(() => {
     dispatch(asyncPopulateThreads());
@@ -29,8 +43,12 @@ function HomePage() {
           Ikuti percakapan yang sedang berlangsung, atau mulai utas barumu sendiri.
         </p>
       </div>
-
-      <ThreadList threads={threads} users={users} />
+      <CategoryFilter
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
+      <ThreadList threads={filteredThreads} users={users} />
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // 1. Impor semua halaman dari folder pages
 import HomePage from '../pages/HomePage'; // sesuaikan dengan nama file Anda
