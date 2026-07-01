@@ -1,193 +1,195 @@
-import { getAllThreads, getAllUsers, createThread, upVoteThread,
+import {
+  getAllThreads, getAllUsers, createThread, upVoteThread,
   downVoteThread,
-  neutralVoteThread, } from "../../utils/api";
-import { receiveUsersActionCreator } from "../users/action";
-import { showLoadingActionCreator, hideLoadingActionCreator } from "../loading/action";
+  neutralVoteThread
+} from '../../utils/api'
+import { receiveUsersActionCreator } from '../users/action'
+import { showLoadingActionCreator, hideLoadingActionCreator } from '../loading/action'
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
   ADD_THREAD: 'ADD_THREAD',
   UP_VOTE_THREAD: 'UP_VOTE_THREAD',
   DOWN_VOTE_THREAD: 'DOWN_VOTE_THREAD',
-  NEUTRAL_VOTE_THREAD: 'NEUTRAL_VOTE_THREAD',
-};
+  NEUTRAL_VOTE_THREAD: 'NEUTRAL_VOTE_THREAD'
+}
 
-function receiveThreadsActionCreator(threads) {
+function receiveThreadsActionCreator (threads) {
   return {
     type: ActionType.RECEIVE_THREADS,
     payload: {
-      threads,
-    },
-  };
+      threads
+    }
+  }
 }
-function addThreadActionCreator(
+function addThreadActionCreator (
   thread
-    ){
-    return{
+) {
+  return {
     type:
     ActionType.ADD_THREAD,
-    payload:{
-    thread
+    payload: {
+      thread
     }
   }
 }
 
-function upVoteThreadActionCreator(threadId, userId) {
+function upVoteThreadActionCreator (threadId, userId) {
   return {
     type: ActionType.UP_VOTE_THREAD,
     payload: {
       threadId,
-      userId,
-    },
-  };
+      userId
+    }
+  }
 }
 
-function downVoteThreadActionCreator(threadId, userId) {
+function downVoteThreadActionCreator (threadId, userId) {
   return {
     type: ActionType.DOWN_VOTE_THREAD,
     payload: {
       threadId,
-      userId,
-    },
-  };
+      userId
+    }
+  }
 }
 
-function neutralVoteThreadActionCreator(threadId, userId) {
+function neutralVoteThreadActionCreator (threadId, userId) {
   return {
     type: ActionType.NEUTRAL_VOTE_THREAD,
     payload: {
       threadId,
-      userId,
-    },
-  };
-}
-
-function asyncPopulateThreads() {
-  return async (dispatch) => {
-    dispatch(showLoadingActionCreator());
-    try {
-      const threads =
-        await getAllThreads();
-      const users =
-        await getAllUsers();
-      dispatch(
-        receiveThreadsActionCreator(
-          threads,
-        ),
-      );
-      dispatch(
-        receiveUsersActionCreator(
-          users,
-        ),
-      );
-    } finally {
-      dispatch(
-        hideLoadingActionCreator(),
-      );
+      userId
     }
-  };
-}
-
-function asyncAddThread({
-  title,
-  body,
-  category
-  }){
-    return async(dispatch)=>{
-      dispatch(showLoadingActionCreator());
-      try {
-        const thread = await createThread({
-          title,
-          body,
-          category
-        });
-        dispatch(
-          addThreadActionCreator(
-          thread
-          )
-        );
-      } finally {
-        dispatch(hideLoadingActionCreator());
-      }
   }
 }
 
-function asyncUpVoteThread(threadId) {
+function asyncPopulateThreads () {
+  return async (dispatch) => {
+    dispatch(showLoadingActionCreator())
+    try {
+      const threads =
+        await getAllThreads()
+      const users =
+        await getAllUsers()
+      dispatch(
+        receiveThreadsActionCreator(
+          threads
+        )
+      )
+      dispatch(
+        receiveUsersActionCreator(
+          users
+        )
+      )
+    } finally {
+      dispatch(
+        hideLoadingActionCreator()
+      )
+    }
+  }
+}
+
+function asyncAddThread ({
+  title,
+  body,
+  category
+}) {
+  return async (dispatch) => {
+    dispatch(showLoadingActionCreator())
+    try {
+      const thread = await createThread({
+        title,
+        body,
+        category
+      })
+      dispatch(
+        addThreadActionCreator(
+          thread
+        )
+      )
+    } finally {
+      dispatch(hideLoadingActionCreator())
+    }
+  }
+}
+
+function asyncUpVoteThread (threadId) {
   return async (dispatch, getState) => {
-    const { authUser } = getState();
+    const { authUser } = getState()
     dispatch(
       upVoteThreadActionCreator(
         threadId,
-        authUser.id,
-      ),
-    );
+        authUser.id
+      )
+    )
     try {
-      await upVoteThread(threadId);
+      await upVoteThread(threadId)
     } catch (error) {
       dispatch(
         neutralVoteThreadActionCreator(
           threadId,
-          authUser.id,
-        ),
-      );
-      alert(error.message);
+          authUser.id
+        )
+      )
+      alert(error.message)
     }
-  };
+  }
 }
 
-function asyncDownVoteThread(threadId) {
+function asyncDownVoteThread (threadId) {
   return async (dispatch, getState) => {
-    const { authUser } = getState();
+    const { authUser } = getState()
     dispatch(
       downVoteThreadActionCreator(
         threadId,
-        authUser.id,
-      ),
-    );
+        authUser.id
+      )
+    )
     try {
-      await downVoteThread(threadId);
+      await downVoteThread(threadId)
     } catch (error) {
       dispatch(
         neutralVoteThreadActionCreator(
           threadId,
-          authUser.id,
-        ),
-      );
-      alert(error.message);
+          authUser.id
+        )
+      )
+      alert(error.message)
     }
-  };
+  }
 }
 
-function asyncNeutralVoteThread(threadId) {
+function asyncNeutralVoteThread (threadId) {
   return async (dispatch, getState) => {
-    const { authUser } = getState();
+    const { authUser } = getState()
     dispatch(
       neutralVoteThreadActionCreator(
         threadId,
-        authUser.id,
-      ),
-    );
+        authUser.id
+      )
+    )
     try {
-      await neutralVoteThread(threadId);
+      await neutralVoteThread(threadId)
     } catch (error) {
       dispatch(
         upVoteThreadActionCreator(
           threadId,
-          authUser.id,
-        ),
-      );
-      alert(error.message);
+          authUser.id
+        )
+      )
+      alert(error.message)
     }
-  };
+  }
 }
 
 export {
-    ActionType,
-    receiveThreadsActionCreator,
-    asyncPopulateThreads,
-    addThreadActionCreator,
-    asyncAddThread,
-    asyncDownVoteThread,
-    asyncNeutralVoteThread,
-    asyncUpVoteThread,
+  ActionType,
+  receiveThreadsActionCreator,
+  asyncPopulateThreads,
+  addThreadActionCreator,
+  asyncAddThread,
+  asyncDownVoteThread,
+  asyncNeutralVoteThread,
+  asyncUpVoteThread
 }

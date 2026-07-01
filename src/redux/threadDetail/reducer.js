@@ -1,132 +1,132 @@
-import { ActionType } from './action';
+import { ActionType } from './action'
 
-function threadDetailReducer(
+function threadDetailReducer (
   threadDetail = null,
-  action = {},
+  action = {}
 ) {
-  switch(action.type) {
+  switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
-      return action.payload.threadDetail;
+      return action.payload.threadDetail
     case ActionType.CLEAR_THREAD_DETAIL:
-      return null;
+      return null
     case ActionType.ADD_COMMENT:
-      return{
-          ...threadDetail,
-          comments:[
-            action.payload.comment,
-            ...threadDetail.comments,
-          ],
-      };
+      return {
+        ...threadDetail,
+        comments: [
+          action.payload.comment,
+          ...threadDetail.comments
+        ]
+      }
     case ActionType.UP_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
-        upVotesBy:[
-        ...threadDetail.upVotesBy.filter(
-        (id)=>id!==action.payload.userId
-        ),
-        action.payload.userId,
+        upVotesBy: [
+          ...threadDetail.upVotesBy.filter(
+            (id) => id !== action.payload.userId
+          ),
+          action.payload.userId
         ],
         downVotesBy:
           threadDetail.downVotesBy.filter(
-          (id)=>id!==action.payload.userId
-          ),
-      };
+            (id) => id !== action.payload.userId
+          )
+      }
     case ActionType.DOWN_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
-        downVotesBy:[
+        downVotesBy: [
           ...threadDetail.downVotesBy.filter(
-          (id)=>id!==action.payload.userId
+            (id) => id !== action.payload.userId
           ),
-          action.payload.userId,
+          action.payload.userId
         ],
         upVotesBy:
           threadDetail.upVotesBy.filter(
-          (id)=>id!==action.payload.userId
-          ),
-      };
+            (id) => id !== action.payload.userId
+          )
+      }
     case ActionType.NEUTRAL_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
         upVotesBy:
         threadDetail.upVotesBy.filter(
-        (id)=>id!==action.payload.userId
+          (id) => id !== action.payload.userId
         ),
         downVotesBy:
         threadDetail.downVotesBy.filter(
-        (id)=>id!==action.payload.userId
-        ),
-      };
+          (id) => id !== action.payload.userId
+        )
+      }
     case ActionType.UP_VOTE_COMMENT:
       return {
-      ...threadDetail,
-      comments:
-      threadDetail.comments.map((comment)=>{
-      if(comment.id!==action.payload.commentId){
-      return comment;
-      }
-      return{
-      ...comment,
-      upVotesBy:[
-      ...comment.upVotesBy.filter(
-      (id)=>id!==action.payload.userId
-      ),
-      action.payload.userId,
-      ],
-      downVotesBy:
+        ...threadDetail,
+        comments:
+      threadDetail.comments.map((comment) => {
+        if (comment.id !== action.payload.commentId) {
+          return comment
+        }
+        return {
+          ...comment,
+          upVotesBy: [
+            ...comment.upVotesBy.filter(
+              (id) => id !== action.payload.userId
+            ),
+            action.payload.userId
+          ],
+          downVotesBy:
       comment.downVotesBy.filter(
-      (id)=>id!==action.payload.userId
-      ),
-      };
-      }),
-      };
+        (id) => id !== action.payload.userId
+      )
+        }
+      })
+      }
     case ActionType.DOWN_VOTE_COMMENT:
       return {
-      ...threadDetail,
-      comments:
-      threadDetail.comments.map((comment)=>{
-      if(comment.id!==action.payload.commentId){
-      return comment;
-      }
-      return{
-      ...comment,
-      downVotesBy:[
-      ...comment.downVotesBy.filter(
-      (id)=>id!==action.payload.userId
-      ),
-      action.payload.userId,
-      ],
-      upVotesBy:
+        ...threadDetail,
+        comments:
+      threadDetail.comments.map((comment) => {
+        if (comment.id !== action.payload.commentId) {
+          return comment
+        }
+        return {
+          ...comment,
+          downVotesBy: [
+            ...comment.downVotesBy.filter(
+              (id) => id !== action.payload.userId
+            ),
+            action.payload.userId
+          ],
+          upVotesBy:
       comment.upVotesBy.filter(
-      (id)=>id!==action.payload.userId
-      ),
-      };
-      }),
-      };
+        (id) => id !== action.payload.userId
+      )
+        }
+      })
+      }
     case ActionType.NEUTRAL_VOTE_COMMENT:
       return {
-      ...threadDetail,
-      comments:
-      threadDetail.comments.map((comment)=>{
-      if(comment.id!==action.payload.commentId){
-      return comment;
-      }
-      return{
-        ...comment,
-        upVotesBy:
+        ...threadDetail,
+        comments:
+      threadDetail.comments.map((comment) => {
+        if (comment.id !== action.payload.commentId) {
+          return comment
+        }
+        return {
+          ...comment,
+          upVotesBy:
       comment.upVotesBy.filter(
-      (id)=>id!==action.payload.userId
+        (id) => id !== action.payload.userId
       ),
-      downVotesBy:
+          downVotesBy:
         comment.downVotesBy.filter(
-      (id)=>id!==action.payload.userId
-      ),
-    };
-      }),
-      };
+          (id) => id !== action.payload.userId
+        )
+        }
+      })
+      }
     default:
-      return threadDetail;
+      return threadDetail
   }
 }
 
-export default threadDetailReducer;
+export default threadDetailReducer

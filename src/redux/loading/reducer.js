@@ -1,19 +1,19 @@
-import { ActionType } from './action';
+import { ActionType } from './action'
 
-function loadingReducer(
+function loadingReducer (
   isLoading = false,
-  action = {},
+  action = {}
 ) {
   switch (action.type) {
     case ActionType.SHOW_LOADING:
-      return true;
+      return true
 
     case ActionType.HIDE_LOADING:
-      return false;
+      return false
 
     default:
-      return isLoading;
+      return isLoading
   }
 }
 
-export default loadingReducer;
+export default loadingReducer

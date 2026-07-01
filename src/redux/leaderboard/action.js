@@ -1,30 +1,30 @@
-import { getLeaderboards } from "../../utils/api";
+import { getLeaderboards } from '../../utils/api'
 
 const ActionType = {
-    RECEIVE_LEADERBOARD: 'RECEIVE_LEADERBOARD',
+  RECEIVE_LEADERBOARD: 'RECEIVE_LEADERBOARD'
 }
-function setLeaderboardActionCreator(leaderboard) {
+function setLeaderboardActionCreator (leaderboard) {
   return {
     type: ActionType.RECEIVE_LEADERBOARD,
     payload: {
-      leaderboard,
-    },
-  };
+      leaderboard
+    }
+  }
 }
 
-function asyncPopulateLeaderboards() {
+function asyncPopulateLeaderboards () {
   return async (dispatch) => {
-    const leaderboard = await getLeaderboards();
+    const leaderboard = await getLeaderboards()
     dispatch(
       setLeaderboardActionCreator(
-        leaderboard,
-      ),
-    );
-  };
+        leaderboard
+      )
+    )
+  }
 }
 
 export {
-    ActionType,
-    setLeaderboardActionCreator,
-    asyncPopulateLeaderboards,
+  ActionType,
+  setLeaderboardActionCreator,
+  asyncPopulateLeaderboards
 }

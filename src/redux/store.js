@@ -1,15 +1,15 @@
 import {
   combineReducers,
   createStore,
-  applyMiddleware,
-} from 'redux';
-import authUser from './auth/reducer';
-import users from './users/reducer';
-import threads from './threads/reducer';
-import threadDetail from './threadDetail/reducer';
-import leaderboards from './leaderboard/reducer';
-import isPreload from './loading/reducer';
-import { thunk } from 'redux-thunk';
+  applyMiddleware
+} from 'redux'
+import authUser from './auth/reducer'
+import users from './users/reducer'
+import threads from './threads/reducer'
+import threadDetail from './threadDetail/reducer'
+import leaderboards from './leaderboard/reducer'
+import isPreload from './loading/reducer'
+import { thunk } from 'redux-thunk'
 
 const rootReducer =
   combineReducers({
@@ -18,12 +18,12 @@ const rootReducer =
     threads,
     threadDetail,
     leaderboards,
-    isPreload,
-  });
+    isPreload
+  })
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
-);
+  applyMiddleware(thunk)
+)
 
-export default store;
+export default store

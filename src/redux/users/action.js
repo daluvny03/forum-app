@@ -1,27 +1,27 @@
-import { getAllUsers } from '../../utils/api';
+import { getAllUsers } from '../../utils/api'
 
 const ActionType = {
-  RECEIVE_USERS: 'RECEIVE_USERS',
-};
+  RECEIVE_USERS: 'RECEIVE_USERS'
+}
 
-function receiveUsersActionCreator(users) {
+function receiveUsersActionCreator (users) {
   return {
     type: ActionType.RECEIVE_USERS,
     payload: {
-      users,
-    },
-  };
+      users
+    }
+  }
 }
 
-function asyncReceiveUsers() {
+function asyncReceiveUsers () {
   return async (dispatch) => {
-    const users = await getAllUsers();
-    dispatch(receiveUsersActionCreator(users));
-  };
+    const users = await getAllUsers()
+    dispatch(receiveUsersActionCreator(users))
+  }
 }
 
 export {
   ActionType,
   receiveUsersActionCreator,
-  asyncReceiveUsers,
-};
+  asyncReceiveUsers
+}
